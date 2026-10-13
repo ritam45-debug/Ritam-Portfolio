@@ -14,8 +14,21 @@ React 18 · TypeScript · Vite 6 · Tailwind CSS 4 · Recharts · Lucide icons. 
 | About | Education, toolkit, focus areas |
 | Projects | **Blue Star Ltd** equity snapshot (individual) and **Wires & Cables: Polycab vs KEI vs R R Kabel** (FADM group project) as interactive dashboards, with the original summary page and all 26 deck slides in a full-screen viewer |
 | Competition record | 60 competitions with filters, charts and a searchable table |
+| Consult | Question box (emails you), notification bell, WhatsApp and email contact |
 
 Extras: three colour themes (Aurora, Saffron, Orchid) plus light/dark mode, both remembered per visitor; scroll-reveal animations and reading-progress bar; full keyboard support; respects "reduce motion".
+
+## Consulting box, bell and contact
+
+- **Questions** from the Consult form are emailed to mathsbaba61@gmail.com by [FormSubmit](https://formsubmit.co) (free, no account). **One-time activation:** the very first question sent from the live site makes FormSubmit email you an "Activate Form" link. Click it; questions are only delivered after that. Send yourself a test question right after deploying.
+- **Bell icon:** each question also posts a short alert (topic and time only, never names or emails) to the public [ntfy.sh](https://ntfy.sh) topic `ritam-portfolio-consult-8q4z`. The bell polls that topic. ntfy.sh keeps messages only for a limited time (hours), so your email inbox is the permanent record.
+- **Phone push alerts:** install the free **ntfy** app (Android / iOS), tap **+**, and subscribe to `ritam-portfolio-consult-8q4z`. You get a push notification for every new question.
+- **Change the topic or email:** edit `consult` and `contact` in `src/content/profile.ts`. Because the topic name is in public code, anyone could post to it; if that happens, change the topic name.
+- **WhatsApp** links use `https://wa.me/917602039771` (India +91). **Email** shows mathsbaba61@gmail.com with a copy button.
+
+## Original files
+
+The PDFs behind each project live in `public/files/` and open from the project cards ("Original file" / "Open PDF"). The FADM deck there is a web-sized copy (8.6 MB) of the original 17.6 MB file; replace it with the same file name to update it.
 
 ---
 

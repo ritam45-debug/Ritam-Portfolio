@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { ACCENTS, type Accent, type Theme } from "../lib/theme";
 import { profile } from "../content/profile";
+import { Bell } from "./Bell";
 
 export const NAV = [
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "competitions", label: "Competitions" },
+  { id: "consult", label: "Consult" },
 ];
 
 function AccentPicker({ accent, onAccent }: { accent: Accent; onAccent: (a: Accent) => void }) {
@@ -71,7 +73,8 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
           ))}
         </ul>
         <div className="flex items-center gap-2">
-          <AccentPicker accent={accent} onAccent={onAccent} />
+          <div className="hidden sm:block"><AccentPicker accent={accent} onAccent={onAccent} /></div>
+          <Bell />
           <button
             type="button"
             onClick={onToggleTheme}
@@ -95,6 +98,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
       <div className="progress-bar absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent to-accent-2" aria-hidden />
       {open && (
         <ul id="mobile-nav" className="grid gap-1 border-t border-line bg-bg px-4 py-3 md:hidden">
+          <li className="flex items-center justify-between px-3 py-2 sm:hidden"><span className="text-sm text-muted">Colours</span><AccentPicker accent={accent} onAccent={onAccent} /></li>
           {NAV.map((n) => (
             <li key={n.id}>
               <a href={`#${n.id}`} onClick={() => setOpen(false)} className="block rounded-md px-3 py-2.5 text-fg hover:bg-surface-2">

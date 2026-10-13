@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUp, Linkedin } from "lucide-react";
+import { ArrowUp, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { profile } from "../content/profile";
 import { NAV } from "./Nav";
 
@@ -15,6 +15,10 @@ export function Footer() {
               <Linkedin size={14} /> LinkedIn
             </a>
           )}
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <a href={`https://wa.me/${profile.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-muted hover:text-fg"><MessageCircle size={14} /> {profile.contact.whatsappDisplay}</a>
+            <a href={`mailto:${profile.contact.email}`} className="inline-flex items-center gap-1.5 text-muted hover:text-fg"><Mail size={14} /> {profile.contact.email}</a>
+          </div>
         </div>
         <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           {NAV.map((n) => <li key={n.id}><a href={`#${n.id}`} className="text-muted hover:text-fg">{n.label}</a></li>)}

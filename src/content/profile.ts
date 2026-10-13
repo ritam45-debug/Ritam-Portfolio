@@ -46,15 +46,38 @@ export const profile = {
 
   contact: {
     /** Add your professional email, e.g. "ritam@example.com". Leave "" to hide it. */
-    email: "",
+    email: "mathsbaba61@gmail.com",
     /** Full LinkedIn URL, e.g. "https://www.linkedin.com/in/your-handle". Leave "" to hide it. */
     linkedin: "https://www.linkedin.com/in/ritam-dhara-7b6179272/",
+    /** WhatsApp number in international format, digits only (India +91). */
+    whatsapp: "917602039771",
+    whatsappDisplay: "+91 76020 39771",
     location: "Chennai, India",
     collaborationTopics: [
       "Finance and valuation case work",
       "Dashboards and data storytelling",
       "Case competitions and strategy problems",
       "Conversations about AI in business",
+    ],
+  },
+
+  consult: {
+    /** Questions from the consulting box are emailed here by FormSubmit (formsubmit.co). */
+    formEndpoint: "https://formsubmit.co/ajax/mathsbaba61@gmail.com",
+    /**
+     * ntfy.sh topic used for the bell and phone alerts. Only the topic of a
+     * question and its time are posted here, never names or emails.
+     * Subscribe to this topic in the ntfy app to get push alerts.
+     */
+    notifyTopic: "ritam-portfolio-consult-8q4z",
+    topics: [
+      "Financial analysis or valuation",
+      "Equity research",
+      "Dashboards and data visualisation",
+      "Case competitions",
+      "Business strategy",
+      "Internship or job opportunity",
+      "Something else",
     ],
   },
 
