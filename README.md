@@ -2,7 +2,7 @@
 
 *Where Finance Meets Data, Strategy & AI*
 
-**Live site:** https://ritam45-debug.github.io/ritam-portfolio/
+**Live site:** https://ritam45-debug.github.io/Ritam-Portfolio/
 
 React 18 · TypeScript · Vite 6 · Tailwind CSS 4 · Recharts · Lucide icons. Static site: no database, no server, no paid services.
 
@@ -41,7 +41,7 @@ you edit files  →  git push to main  →  GitHub Actions builds the site  → 
 
 The workflow lives in `.github/workflows/deploy.yml`. Every push to `main` rebuilds and republishes automatically, usually within 1–2 minutes.
 
-### First-time setup (already done for ritam45-debug/ritam-portfolio)
+### First-time setup (already done for ritam45-debug/Ritam-Portfolio)
 
 1. **Create the repo.** On github.com/new, name it `ritam-portfolio`, make it **Public**, and leave README/.gitignore/licence unticked.
 2. **Push the code** from this folder:
@@ -50,12 +50,12 @@ The workflow lives in `.github/workflows/deploy.yml`. Every push to `main` rebui
    git add .
    git commit -m "Portfolio site"
    git branch -M main
-   git remote add origin https://github.com/ritam45-debug/ritam-portfolio.git
+   git remote add origin https://github.com/ritam45-debug/Ritam-Portfolio.git
    git push -u origin main
    ```
 3. **Let the workflow run.** Open the repo's **Actions** tab and wait for "Deploy to GitHub Pages" to show a green tick. It creates the `gh-pages` branch.
 4. **Turn on Pages.** Go to **Settings → Pages**. Under *Build and deployment*, set **Source: Deploy from a branch**, **Branch: `gh-pages`**, folder **`/ (root)`**, then **Save**.
-5. **Open the site** at `https://ritam45-debug.github.io/ritam-portfolio/`. The first publish can take a few minutes; Settings → Pages shows the live URL when it's ready.
+5. **Open the site** at `https://ritam45-debug.github.io/Ritam-Portfolio/`. The first publish can take a few minutes; Settings → Pages shows the live URL when it's ready.
 
 ### Updating the site later
 

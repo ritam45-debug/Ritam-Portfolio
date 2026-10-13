@@ -82,5 +82,5 @@ export const profile = {
   },
 
   /** Public URL once deployed — used for share links and social previews. */
-  siteUrl: "https://ritam45-debug.github.io/ritam-portfolio/",
+  siteUrl: "https://ritam45-debug.github.io/Ritam-Portfolio/",
 } as const;
