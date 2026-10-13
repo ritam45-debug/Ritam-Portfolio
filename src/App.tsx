@@ -7,9 +7,10 @@ import { CompetitionDashboard } from "./components/CompetitionDashboard";
 import { Work } from "./components/Work";
 import { BackToTop, Footer } from "./components/Footer";
 import { Consult, WhatsAppFab } from "./components/Consult";
+import { Trivia } from "./components/Trivia";
 import { Toast } from "./components/ui";
 
-// Sections currently live: Hero, About, Projects (Blue Star, FADM), Competition record, Consult.
+// Sections currently live: Hero, About, Projects (Blue Star, FADM), Competition record, Finance & Marketing trivia, Consult.
 // Parked components, ready to re-add on request: Projects, Playground, Journey,
 // Interests, AskRitam, Journal, Contact (all in src/components/).
 
@@ -37,6 +38,7 @@ export default function App() {
         <About />
         <Work />
         <CompetitionDashboard />
+        <Trivia />
         <Consult onToast={showToast} />
       </main>
       <Footer />

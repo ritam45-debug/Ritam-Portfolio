@@ -6,7 +6,7 @@ import { addMine, publishNotice, sendQuestion } from "../lib/consult";
 import { SectionHeader } from "./ui";
 import { spotMove } from "./work/shared";
 
-type Status = { kind: "idle" | "sending" | "sent" | "activation" | "error"; text?: string };
+type Status = { kind: "idle" | "sending" | "sent" | "activation" | "error"; text?: string; mailto?: string };
 const EMPTY = { name: "", email: "", topic: "", question: "", website: "" };
 
 export const whatsappLink = (text = "Hi Ritam, I saw your portfolio and would like to connect.") =>
@@ -36,17 +36,19 @@ export function Consult({ onToast }: { onToast: (m: string) => void }) {
     if (Object.keys(e).length) return;
     if (form.website) { setStatus({ kind: "sent", text: "Thanks." }); return; } // spam trap
     setStatus({ kind: "sending" });
+    // Prefilled email to Ritam, offered whenever the automatic delivery can't be confirmed.
+    const mailto = `mailto:${profile.contact.email}?subject=${encodeURIComponent(`Portfolio question: ${form.topic || "General"}`)}&body=${encodeURIComponent(`${form.question.trim()}\n\nFrom: ${form.name.trim()} (${form.email.trim()})`)}`;
     try {
       const result = await sendQuestion({ name: form.name.trim(), email: form.email.trim(), topic: form.topic, question: form.question.trim() });
       await publishNotice(form.topic);
       addMine({ topic: form.topic || "General", time: Math.floor(Date.now() / 1000), status: result });
       window.dispatchEvent(new Event("rd-notices-refresh"));
-      setForm(EMPTY);
+      if (result === "sent") setForm(EMPTY);
       setStatus(result === "sent"
         ? { kind: "sent", text: `Question sent. Ritam will reply to ${form.email.trim()} by email.` }
-        : { kind: "activation", text: "The form reached the email service, but delivery to Ritam isn't switched on yet, so your question may not arrive. Please also send it on WhatsApp or by email." });
+        : { kind: "activation", mailto, text: "The form reached the email service, but delivery to Ritam isn't switched on yet, so your question may not arrive. Send it by email with one click below, or on WhatsApp." });
     } catch {
-      setStatus({ kind: "error", text: "Your question couldn't be sent from here. Please use WhatsApp or email on the right; both reach Ritam directly." });
+      setStatus({ kind: "error", mailto, text: "Your question couldn't be sent automatically. Your text is still in the form; send it by email with one click, or use WhatsApp." });
     }
   };
 
@@ -58,7 +60,7 @@ export function Consult({ onToast }: { onToast: (m: string) => void }) {
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHeader
           id="consult-h"
-          code="§ 04 · Consult"
+          code="§ 06 · Consult"
           title="Ask me a question"
           lede="Working on a valuation, a dashboard or a case and want a second pair of eyes? Leave your question and email, or reach me directly on WhatsApp."
         />
@@ -111,7 +113,14 @@ export function Consult({ onToast }: { onToast: (m: string) => void }) {
               {status.text && (
                 <p className={`fade-in flex gap-2 rounded-xl border p-3 text-sm ${status.kind === "sent" ? "border-pos/50 text-fg" : status.kind === "error" ? "border-neg/50 text-fg" : "border-amber/50 text-fg"}`}>
                   {status.kind === "sent" && <Check size={16} className="mt-0.5 shrink-0 text-pos" />}
-                  {status.text}
+                  <span>
+                    {status.text}
+                    {status.mailto && (
+                      <a href={status.mailto} className="mt-2 flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-accent to-accent-2 px-3.5 py-1.5 text-xs font-semibold text-accent-ink">
+                        <Mail size={13} /> Email this question to Ritam
+                      </a>
+                    )}
+                  </span>
                 </p>
               )}
             </div>

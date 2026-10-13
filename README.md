@@ -14,6 +14,7 @@ React 18 · TypeScript · Vite 6 · Tailwind CSS 4 · Recharts · Lucide icons. 
 | About | Education, toolkit, focus areas |
 | Projects | **Blue Star Ltd** equity snapshot (individual) and **Wires & Cables: Polycab vs KEI vs R R Kabel** (FADM group project) as interactive dashboards, with the original summary page and all 26 deck slides in a full-screen viewer |
 | Competition record | 60 competitions with filters, charts and a searchable table |
+| Finance trivia / Marketing trivia | Two separate quiz sections; 4-option questions generated fresh each time (calculations with random numbers, glossary matching, fact bank), score and streak |
 | Consult | Question box (emails you), notification bell, WhatsApp and email contact |
 
 Extras: three colour themes (Aurora, Saffron, Orchid) plus light/dark mode, both remembered per visitor; scroll-reveal animations and reading-progress bar; full keyboard support; respects "reduce motion".
@@ -106,6 +107,7 @@ All content lives in `src/content/`; components never need editing for content c
 | Replace FADM slide images | `src/assets/fadm/slide-01.jpg` … `slide-26.jpg` (keep the names; titles are in `work.ts → fadm.slides`) |
 | Replace the Blue Star summary image | `src/assets/bluestar-summary.jpg` |
 | Add or fix a competition | `competitions.ts` (one line per competition) |
+| Trivia questions (add facts, terms or calculation templates) | `trivia.ts` |
 | Ticker-tape figures | `TAPE` list at the bottom of `src/components/Hero.tsx` |
 
 Parked sections (Analytics playground, Learning journey, Interests, Ask Ritam, Journal, Contact) are still in `src/components/` and can be switched back on in `src/App.tsx`.
