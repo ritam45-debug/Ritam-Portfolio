@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { ArrowDownRight, Linkedin } from "lucide-react";
 import { profile } from "../content/profile";
+import { CandleField } from "./Effects";
 
 // Deterministic "market" series so the hero looks the same on every load.
 function series(n: number) {
@@ -47,22 +48,30 @@ export function Hero() {
   return (
     <section id="top" className="ledger relative overflow-hidden border-b border-line">
       <div className="aurora" aria-hidden><span /><span /><span /></div>
+      <CandleField />
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-12 sm:px-6 md:pt-20 lg:grid-cols-[1.05fr_1fr] lg:pb-24">
         <div className="min-w-0">
           <p className="ticker rise text-accent">RD · FIN / DATA / STRATEGY / AI</p>
           <h1 className="rise mt-5 font-display text-[2.6rem] leading-[1.02] tracking-tight text-fg sm:text-6xl" style={{ animationDelay: "80ms" }}>
             {profile.headline.map((line, i) => (
-              <span key={line} className={`block ${i === 1 ? "gradient-text italic pb-1" : ""}`}>{line}</span>
+              <span key={line} className={`block ${i === 1 ? "italic pb-1" : ""}`}>
+                {line.split(" ").map((w, j) => (
+                  <span key={j} className="word-in inline-block" style={{ animationDelay: `${120 + i * 260 + j * 90}ms` }}>
+                    {/* the gradient sits on an inner span: background-clip text doesn't reach through animated children */}
+                    <span className={i === 1 ? "gradient-text" : undefined}>{w}</span>{j < line.split(" ").length - 1 ? "\u00a0" : ""}
+                  </span>
+                ))}
+              </span>
             ))}
           </h1>
           <p className="rise mt-6 max-w-[54ch] text-lg text-muted" style={{ animationDelay: "160ms" }}>
             <span className="text-fg">{profile.name}</span> — where finance meets data, strategy &amp; AI. {profile.intro}
           </p>
           <div className="rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: "240ms" }}>
-            <a href="#projects" className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-accent-ink shadow-[0_10px_30px_-10px_var(--accent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_var(--accent)]">
+            <a href="#projects" data-magnetic className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-accent-ink shadow-[0_10px_30px_-10px_var(--accent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_var(--accent)]">
               Explore projects <ArrowDownRight size={16} className="transition-transform group-hover:rotate-[-45deg]" />
             </a>
-            <a href="#competitions" className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-5 py-3 text-sm font-semibold text-fg backdrop-blur-sm transition-colors hover:border-accent">
+            <a href="#competitions" data-magnetic className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-5 py-3 text-sm font-semibold text-fg backdrop-blur-sm transition-colors hover:border-accent">
               Competition record
             </a>
             <a href="#about" className="inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-muted hover:text-fg">

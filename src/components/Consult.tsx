@@ -60,7 +60,7 @@ export function Consult({ onToast }: { onToast: (m: string) => void }) {
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHeader
           id="consult-h"
-          code="§ 06 · Consult"
+          code="§ 08 · Consult"
           title="Ask me a question"
           lede="Working on a valuation, a dashboard or a case and want a second pair of eyes? Leave your question and email, or reach me directly on WhatsApp."
         />

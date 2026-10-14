@@ -15,6 +15,9 @@ React 18 · TypeScript · Vite 6 · Tailwind CSS 4 · Recharts · Lucide icons. 
 | Projects | **Blue Star Ltd** equity snapshot (individual) and **Wires & Cables: Polycab vs KEI vs R R Kabel** (FADM group project) as interactive dashboards, with the original summary page and all 26 deck slides in a full-screen viewer |
 | Competition record | 60 competitions with filters, charts and a searchable table |
 | Finance trivia / Marketing trivia | Two separate quiz sections; 4-option questions generated fresh each time (calculations with random numbers, glossary matching, fact bank), score and streak |
+| Bulls vs Bears | Animated market tribute under the hero |
+| Newsletter | Published issues, reader view, subscribe box, owner-only editor |
+| Newsroom | Markets, finance, economics and geopolitics headlines refreshed every 3 hours |
 | Consult | Question box (emails you), notification bell, WhatsApp and email contact |
 
 Extras: three colour themes (Aurora, Saffron, Orchid) plus light/dark mode, both remembered per visitor; scroll-reveal animations and reading-progress bar; full keyboard support; respects "reduce motion".
@@ -30,6 +33,18 @@ Extras: three colour themes (Aurora, Saffron, Orchid) plus light/dark mode, both
 ## Original files
 
 The PDFs behind each project live in `public/files/` and open from the project cards ("Original file" / "Open PDF"). The FADM deck there is a web-sized copy (8.6 MB) of the original 17.6 MB file; replace it with the same file name to update it.
+
+## Newsletter ("The Ledger Notes")
+
+- **Write:** open the site with `#write` at the end of the address (e.g. `https://ritam45-debug.github.io/Ritam-Portfolio/#write`). That browser remembers author mode and shows a **Write an issue** button. On the Claude-hosted page the button appears automatically for the owner.
+- **Editor:** cover image, title, subtitle, category, tags, headings, bold/italic/underline/strike, lists, quotes, code, dividers, links, images (upload, paste or drag in), undo/redo, preview, autosaved drafts (kept in that browser).
+- **Publish on GitHub Pages:** in the editor's *Publishing settings*, paste a fine-grained GitHub token limited to this repo with *Contents: Read and write*. Publish commits `public/newsletter/posts.json` and images to `main`; the site redeploys in about two minutes.
+- **Publish on the Claude-hosted page:** works for the owner while the page is **not** shared publicly (Claude turns page saving off for public pages).
+- **Subscribers:** the "Get new issues by email" box emails each sign-up to mathsbaba61@gmail.com.
+
+## Newsroom
+
+`scripts/fetch-news.mjs` reads public RSS feeds (CNBC, Economic Times, Livemint, Moneycontrol, The Guardian, BBC, Al Jazeera) and writes `public/news/news.json`. The deploy workflow runs it before every build and on a schedule every 3 hours, so headlines stay fresh. Edit the `FEEDS` list to change sources.
 
 ---
 

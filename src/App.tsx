@@ -8,9 +8,13 @@ import { Work } from "./components/Work";
 import { BackToTop, Footer } from "./components/Footer";
 import { Consult, WhatsAppFab } from "./components/Consult";
 import { Trivia } from "./components/Trivia";
+import { BullBear } from "./components/BullBear";
+import { Newsletter } from "./components/Newsletter";
+import { News } from "./components/News";
+import { CursorGlow, usePointerEffects } from "./components/Effects";
 import { Toast } from "./components/ui";
 
-// Sections currently live: Hero, About, Projects (Blue Star, FADM), Competition record, Finance & Marketing trivia, Consult.
+// Sections currently live: Hero, About, Projects (Blue Star, FADM), Competition record, Finance & Marketing trivia, Newsletter, News, Consult. Bull-vs-bear arena under the hero.
 // Parked components, ready to re-add on request: Projects, Playground, Journey,
 // Interests, AskRitam, Journal, Contact (all in src/components/).
 
@@ -19,6 +23,7 @@ export default function App() {
   const [accent, setAccent] = useState<Accent>(() => getInitialAccent());
   useEffect(() => { applyTheme(theme); }, [theme]);
   useEffect(() => { applyAccent(accent); }, [accent]);
+  usePointerEffects();
   const [toast, setToast] = useState<string | null>(null);
   const timer = useRef<number>();
   const showToast = useCallback((m: string) => {
@@ -35,16 +40,20 @@ export default function App() {
       <Nav theme={theme} onToggleTheme={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} accent={accent} onAccent={setAccent} />
       <main id="main">
         <Hero />
+        <BullBear />
         <About />
         <Work />
         <CompetitionDashboard />
         <Trivia />
+        <Newsletter onToast={showToast} />
+        <News />
         <Consult onToast={showToast} />
       </main>
       <Footer />
       <WhatsAppFab />
       <BackToTop />
       <Toast message={toast} />
+      <CursorGlow />
     </>
   );
 }

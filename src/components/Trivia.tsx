@@ -71,7 +71,7 @@ function TriviaCard({ deck }: { deck: Deck }) {
     : `${triviaStats.marketing.calcTemplates} marketing-maths templates, ${triviaStats.marketing.glossary} terms and ${triviaStats.marketing.facts} facts`;
 
   return (
-    <div ref={cardRef} onMouseMove={spotMove} className="spot edge reveal relative overflow-hidden rounded-3xl p-5 shadow-[0_40px_90px_-60px_var(--accent)] sm:p-8" style={deck === "marketing" ? { ["--accent" as string]: "var(--accent-2)" } : undefined}>
+    <div ref={cardRef} data-tilt="2.5" onMouseMove={spotMove} className="spot edge reveal relative overflow-hidden rounded-3xl p-5 shadow-[0_40px_90px_-60px_var(--accent)] sm:p-8" style={deck === "marketing" ? { ["--accent" as string]: "var(--accent-2)" } : undefined}>
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-25 blur-3xl" style={{ background: accent }} aria-hidden />
 
       <div className="relative flex flex-wrap items-center justify-between gap-3">

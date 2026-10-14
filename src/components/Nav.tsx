@@ -9,6 +9,8 @@ export const NAV = [
   { id: "projects", label: "Projects" },
   { id: "competitions", label: "Competitions" },
   { id: "trivia", label: "Trivia" },
+  { id: "newsletter", label: "Newsletter" },
+  { id: "news", label: "News" },
   { id: "consult", label: "Consult" },
 ];
 
@@ -59,7 +61,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent to-accent-2 font-mono text-xs font-semibold text-accent-ink shadow-[0_0_20px_-4px_var(--accent)] transition-transform group-hover:rotate-6">{profile.initials}</span>
           <span className="hidden sm:inline">{profile.name}</span>
         </a>
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 xl:flex">
           {NAV.map((n) => (
             <li key={n.id}>
               <a
@@ -87,7 +89,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
-            className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted md:hidden"
+            className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -98,7 +100,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
       </nav>
       <div className="progress-bar absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent to-accent-2" aria-hidden />
       {open && (
-        <ul id="mobile-nav" className="grid gap-1 border-t border-line bg-bg px-4 py-3 md:hidden">
+        <ul id="mobile-nav" className="grid gap-1 border-t border-line bg-bg px-4 py-3 xl:hidden">
           <li className="flex items-center justify-between px-3 py-2 sm:hidden"><span className="text-sm text-muted">Colours</span><AccentPicker accent={accent} onAccent={onAccent} /></li>
           {NAV.map((n) => (
             <li key={n.id}>

@@ -51,8 +51,9 @@ export function Work() {
             return (
               <div
                 key={proj.id}
+                data-tilt="5"
                 onMouseMove={spotMove}
-                className={`spot group reveal relative flex min-w-0 gap-4 overflow-hidden rounded-2xl p-4 transition-all duration-300 sm:p-5 ${on ? "edge shadow-[0_24px_60px_-30px_var(--accent)]" : "border border-line bg-surface/60 hover:-translate-y-0.5 hover:border-accent/50"}`}
+                className={`spot group reveal relative flex min-w-0 gap-4 overflow-hidden rounded-2xl p-4 transition-[box-shadow,border-color,transform] duration-300 will-change-transform sm:p-5 ${on ? "edge shadow-[0_24px_60px_-30px_var(--accent)]" : "border border-line bg-surface/60 hover:-translate-y-0.5 hover:border-accent/50"}`}
               >
                 <button type="button" onClick={() => pick(i, "original")} className="relative z-10 hidden h-28 w-36 shrink-0 overflow-hidden rounded-lg border border-line sm:block" aria-label={`Open the original file for ${proj.title}`}>
                   <img src={proj.img} alt="" className={`h-full w-full object-cover ${proj.imgPos} transition-transform duration-700 group-hover:scale-110`} />

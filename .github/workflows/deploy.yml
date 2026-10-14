@@ -1,10 +1,12 @@
-# Builds the site on every push to main and publishes it to the gh-pages branch.
+# Builds the site on every push to main (and every 3 hours for fresh news) and publishes it to the gh-pages branch.
 # GitHub Pages serves the gh-pages branch at https://<user>.github.io/<repo>/
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 */3 * * *" # refresh the news section every 3 hours
   workflow_dispatch:
 
 permissions:
@@ -24,6 +26,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Collect latest news headlines
+        run: node scripts/fetch-news.mjs || echo "News fetch failed; keeping the previous file"
       - run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/

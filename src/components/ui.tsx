@@ -7,7 +7,7 @@ export function SectionHeader({ code, title, lede, id }: { code: string; title: 
       <p className="ticker flex items-center gap-2 text-accent">
         <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" aria-hidden />
         {code}
-        <span className="h-px w-16 bg-gradient-to-r from-accent to-transparent" aria-hidden />
+        <span className="rule-draw h-px w-24 bg-gradient-to-r from-accent to-transparent" aria-hidden />
       </p>
       <h2 id={id} className="font-display text-4xl leading-[1.05] tracking-tight text-fg md:text-5xl">
         {title}
