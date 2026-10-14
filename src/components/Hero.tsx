@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { ArrowDownRight, Linkedin } from "lucide-react";
 import { profile } from "../content/profile";
-import { CandleField } from "./Effects";
+import { CandleField, RisingLine, RisingTickers } from "./Effects";
 
 // Deterministic "market" series so the hero looks the same on every load.
 function series(n: number) {
@@ -49,6 +49,8 @@ export function Hero() {
     <section id="top" className="ledger relative overflow-hidden border-b border-line">
       <div className="aurora" aria-hidden><span /><span /><span /></div>
       <CandleField />
+      <RisingLine />
+      <RisingTickers />
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-12 sm:px-6 md:pt-20 lg:grid-cols-[1.05fr_1fr] lg:pb-24">
         <div className="min-w-0">
           <p className="ticker rise text-accent">RD · FIN / DATA / STRATEGY / AI</p>

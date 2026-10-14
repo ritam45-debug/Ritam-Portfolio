@@ -335,3 +335,21 @@ h1, h2, h3 { text-wrap: balance; }
   .bb-bear { transform: translateX(6%); }
   .bb-line { stroke-dashoffset: 0; }
 }
+
+/* ── Hero: rising market ── */
+.rise-line { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: rise-draw 9s cubic-bezier(0.45, 0, 0.2, 1) infinite; }
+.rise-area { opacity: 0; animation: rise-fill 9s ease-in-out infinite; }
+.rise-head { opacity: 0; animation: rise-head 9s ease-in-out infinite; }
+.rise-ping { transform-box: fill-box; transform-origin: center; animation: rise-ping 1.4s ease-out infinite; }
+@keyframes rise-draw { 0% { stroke-dashoffset: 1400; opacity: 1; } 45% { stroke-dashoffset: 0; opacity: 1; } 85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes rise-fill { 0%, 30% { opacity: 0; } 50%, 85% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes rise-head { 0%, 42% { opacity: 0; } 48%, 85% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes rise-ping { from { transform: scale(0.6); opacity: 0.6; } to { transform: scale(2.2); opacity: 0; } }
+.riser { opacity: 0; animation-name: riser; animation-timing-function: linear; animation-iteration-count: infinite; }
+@keyframes riser { 0% { transform: translateY(20px); opacity: 0; } 10% { opacity: 0.85; } 70% { opacity: 0.6; } 100% { transform: translateY(-560px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .rise-line { animation: none !important; stroke-dashoffset: 0; }
+  .rise-area, .rise-head { animation: none !important; opacity: 1; }
+  .rise-ping { animation: none !important; }
+  .riser { display: none; }
+}
