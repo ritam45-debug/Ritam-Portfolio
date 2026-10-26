@@ -134,3 +134,75 @@ export const fadm = {
     "Inter-firm analysis", "Intra-firm analysis", "Source data",
   ],
 };
+
+/* ───────────────────────── Eternal (formerly Zomato) ───────────────────────── */
+// Figures copied from "Eternal_Company_Profile.pdf" (individual work, Ritam Dhara).
+// null = not meaningful (NM) in the source, e.g. P/E in a loss year.
+
+export const eternal = {
+  id: "eternal",
+  title: "Eternal Ltd",
+  kind: "Equity research · One-page company summary",
+  ownership: "Individual work",
+  blurb:
+    "A one-page equity snapshot of Eternal (formerly Zomato): the turn from losses to profit, the jump in revenue after Blinkit moved to owning its inventory, ownership with no promoter group, leadership pay, capital structure and the latest quarter.",
+  about:
+    "Eternal Ltd (formerly Zomato Ltd, renamed in 2025) is a Gurugram-based consumer-internet group in the Nifty 50. It runs Zomato (food delivery), Blinkit (quick commerce), District (dining, movies, events) and Hyperpure (B2B supplies to restaurants).",
+  businesses: [
+    { name: "Zomato", what: "Food delivery" },
+    { name: "Blinkit", what: "Quick commerce · 2,751 dark stores (Sep-2026), inventory-owned since FY26" },
+    { name: "District", what: "Going out: dining, movies, events" },
+    { name: "Hyperpure", what: "B2B supplies to restaurants · FY26 revenue ₹5,366 Cr" },
+  ],
+  years: ["FY22", "FY23", "FY24", "FY25", "FY26"],
+  sales: [4192, 7079, 12114, 20243, 54364],
+  salesGrowth: [110.23, 68.87, 71.13, 67.1, 168.56],
+  ebitda: [-1851, -1211, 43, 637, 1208],
+  ebitdaMargin: [-44.16, -17.11, 0.35, 3.15, 2.22],
+  ebitMargin: [-28.82, -13.65, 3.0, 4.2, 1.85],
+  netProfit: [-1222, -971, 351, 527, 366],
+  netMargin: [-29.15, -13.72, 2.9, 2.6, 0.67],
+  eps: [-1.54, -1.14, 0.4, 0.55, 0.38],
+  pe: [null, null, 455.25, 366.73, 602.58] as (number | null)[],
+  evEbitda: [null, null, 3676.3, 284.73, 176.74] as (number | null)[],
+  evSales: [14.64, 5.95, 13.05, 8.96, 3.93],
+  pb: [3.81, 2.19, 7.74, 6.03, 6.79],
+  roe: [-10.12, -5.4, 1.76, 2.08, 1.19],
+  roce: [-9.76, -5.29, 1.77, 3.18, 2.96],
+  shareholding: [
+    { name: "DIIs", pct: 36.22 },
+    { name: "FIIs", pct: 33.01 },
+    { name: "Public", pct: 26.26 },
+    { name: "Others (ESOP trust)", pct: 4.53 },
+    { name: "Promoters", pct: 0 },
+  ],
+  topHolders: [
+    { name: "Info Edge (India) Ltd", pct: 12.38, valueCr: 38893.04 },
+    { name: "Foodie Bay Employees ESOP Trust", pct: 4.53, valueCr: 14245.3 },
+    { name: "Deepinder Goyal", pct: 4.4, valueCr: 13811.08 },
+    { name: "HDFC Flexi Cap Fund", pct: 4.12, valueCr: 12955.22 },
+    { name: "SBI Nifty 50 ETF", pct: 3.48, valueCr: 10934.63 },
+    { name: "Kotak Flexicap Fund", pct: 2.59, valueCr: 8128.25 },
+    { name: "ICICI Pru Balanced Advantage Fund", pct: 2.41, valueCr: 7562.07 },
+    { name: "Nippon India ETF Nifty 50 BeES", pct: 2.28, valueCr: 7164.39 },
+    { name: "UTI Flexi Cap Fund", pct: 2.07, valueCr: 6500.28 },
+    { name: "NPS Trust – SBI Pension Fund (State Govt)", pct: 1.88, valueCr: 5894.49 },
+  ],
+  capital: { price: 325.55, priceDate: "26-Oct-2026", sharesCr: 965.04, marketCap: 314167.17, cash: 16475, debt: 5757, minority: 0, ev: 303449.17 },
+  leadership: [
+    { name: "Albinder S. Dhindsa", role: "CEO (from 1-Feb-2026)", pay: "Not disclosed in sources used" },
+    { name: "Deepinder Goyal", role: "Vice Chairman & Non-Executive Director", pay: "Nil · salary waived to Mar-26" },
+    { name: "Akshant Goyal", role: "CFO", pay: "Nil · salary forgone since Jan-22" },
+    { name: "Kaushik Dutta", role: "Chairman & Independent Director", pay: "₹1.00 Cr p.a. + sitting fees" },
+  ],
+  q2fy27: { revenue: 24138, revenueYoY: 78, lfl: 58, profit: 125, profitYoY: 92, adjEbitda: 666, adjEbitdaYoY: 197 },
+  updates: [
+    { date: "21 Oct 2026", text: "Q2 FY27: revenue ₹24,138 Cr (+78% YoY, 58% like-for-like), net profit ₹125 Cr (+92%), Adj. EBITDA ₹666 Cr (+197%); profit missed street estimates and the stock fell ~3.5%." },
+    { date: "21 Oct 2026", text: "Blinkit added 308 stores to reach 2,751; targets more than 3,500 by Mar-2027 and 5,000 by Mar-2028." },
+    { date: "21 Oct 2026", text: "Board approved moving the India going-out business into a subsidiary, and an Adonmo–MyGate share swap (~₹156 Cr)." },
+    { date: "Sep 2026", text: "Shareholding: FIIs up to 33.01% (from 29.09%), DIIs down to 36.22% (from 39.21%)." },
+    { date: "26 Aug 2026", text: "16th AGM adopted FY26 accounts; Sanjeev Bikhchandani (Info Edge nominee) re-appointed." },
+    { date: "1 Feb 2026", text: "Albinder S. Dhindsa (Blinkit CEO) became CEO of Eternal; Deepinder Goyal stepped down as MD & CEO." },
+  ],
+  sources: "Screener.in; Eternal annual reports (FY25, FY26 Board report); exchange shareholding filings and Q2 FY27 shareholders' letter; Yahoo Finance (price and volume).",
+};

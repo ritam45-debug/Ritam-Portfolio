@@ -12,7 +12,7 @@ React 18 · TypeScript · Vite 6 · Tailwind CSS 4 · Recharts · Lucide icons. 
 |---|---|
 | Hero | Animated aurora background, interactive "data → decision" chart, ticker tape of real project figures |
 | About | Education, toolkit, focus areas |
-| Projects | **Blue Star Ltd** equity snapshot (individual) and **Wires & Cables: Polycab vs KEI vs R R Kabel** (FADM group project) as interactive dashboards, with the original summary page and all 26 deck slides in a full-screen viewer |
+| Projects | **Blue Star Ltd** and **Eternal Ltd** equity snapshots (individual) and **Wires & Cables: Polycab vs KEI vs R R Kabel** (FADM group project) as interactive dashboards, with the original summary page and all 26 deck slides in a full-screen viewer |
 | Competition record | 60 competitions with filters, charts and a searchable table |
 | Finance trivia / Marketing trivia | Two separate quiz sections; 4-option questions generated fresh each time (calculations with random numbers, glossary matching, fact bank), score and streak |
 | Bulls vs Bears | Animated market tribute under the hero |

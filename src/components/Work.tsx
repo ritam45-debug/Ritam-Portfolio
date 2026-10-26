@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { ArrowRight, Download, ExternalLink, FileBarChart2, FileText, LayoutDashboard, Presentation } from "lucide-react";
-import { blueStar, fadm } from "../content/work";
+import { blueStar, eternal, fadm } from "../content/work";
 import summaryImg from "../assets/bluestar-summary.jpg";
+import eternalImg from "../assets/eternal-summary.jpg";
 import coverImg from "../assets/fadm/slide-06.jpg";
 import { SectionHeader } from "./ui";
 import { Segmented, spotMove } from "./work/shared";
 import { BlueStarPanel } from "./work/BlueStarPanel";
 import { FadmPanel } from "./work/FadmPanel";
+import { EternalPanel } from "./work/EternalPanel";
 
 const base = import.meta.env.BASE_URL;
 const PROJECTS = [
@@ -14,6 +16,11 @@ const PROJECTS = [
     id: blueStar.id, title: blueStar.title, kind: blueStar.kind, ownership: blueStar.ownership, blurb: blueStar.blurb,
     img: summaryImg, icon: FileBarChart2, imgPos: "object-top",
     pdf: `${base}files/Blue-Star-One-Page-Summary-Ritam-Dhara.pdf`, pdfLabel: "One-page summary · PDF · 77 KB", portrait: true,
+  },
+  {
+    id: eternal.id, title: eternal.title, kind: eternal.kind, ownership: eternal.ownership, blurb: eternal.blurb,
+    img: eternalImg, icon: FileBarChart2, imgPos: "object-top",
+    pdf: `${base}files/Eternal-Company-Profile-Ritam-Dhara.pdf`, pdfLabel: "One-page summary · PDF · 69 KB", portrait: true,
   },
   {
     id: fadm.id, title: fadm.title, kind: fadm.kind, ownership: fadm.ownership, blurb: fadm.blurb,
@@ -41,10 +48,10 @@ export function Work() {
           id="work-h"
           code="§ 02 · Projects"
           title="Equity research and financial analysis"
-          lede="Two pieces of work, each shown as a live dashboard alongside the original file. Pick a project, switch between the dashboard and the original, and hover any chart for exact figures."
+          lede="Three pieces of work, each shown as a live dashboard alongside the original file. Pick a project, switch between the dashboard and the original, and hover any chart for exact figures."
         />
 
-        <div role="tablist" aria-label="Projects" className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2">
+        <div role="tablist" aria-label="Projects" className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 xl:grid-cols-3">
           {PROJECTS.map((proj, i) => {
             const on = i === active;
             const Icon = proj.icon;
@@ -97,7 +104,7 @@ export function Work() {
           </div>
 
           {view === "dashboard" ? (
-            active === 0 ? <BlueStarPanel /> : <FadmPanel />
+            active === 0 ? <BlueStarPanel /> : active === 1 ? <EternalPanel /> : <FadmPanel />
           ) : (
             <div className="fade-in grid gap-4">
               <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-surface p-4">
