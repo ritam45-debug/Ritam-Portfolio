@@ -7,6 +7,7 @@ import {
 } from "../content/competitions";
 import { SectionHeader } from "./ui";
 import { spotMove } from "./work/shared";
+import { HallOfFame, specialLabel } from "./HallOfFame";
 
 const BANDS: Band[] = ["r1", "r2", "deep", "top"];
 const BAND_COLOR: Record<Band, string> = { r1: "var(--b1)", r2: "var(--b2)", deep: "var(--b3)", top: "var(--b4)" };
@@ -71,7 +72,7 @@ export function CompetitionDashboard() {
 
   const tableRows = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const rows = q ? scoped.filter((c) => [c.name, c.organiser, c.team.join(" "), RESULT_LABELS[c.result]].join(" ").toLowerCase().includes(q)) : scoped;
+    const rows = q ? scoped.filter((c) => [c.name, c.organiser, c.team.join(" "), RESULT_LABELS[c.result], specialLabel(c) ?? ""].join(" ").toLowerCase().includes(q)) : scoped;
     const val = (c: Competition): string | number =>
       sort.key === "name" ? c.name.toLowerCase() : sort.key === "result" ? RESULT_DEPTH[c.result] * 1000 - c.id : sort.key === "month" ? (c.month ? MONTHS.indexOf(c.month) : 99) * 1000 + c.id : c.id;
     return [...rows].sort((a, b) => (val(a) < val(b) ? -1 : val(a) > val(b) ? 1 : 0) * sort.dir);
@@ -86,7 +87,7 @@ export function CompetitionDashboard() {
         <SectionHeader
           id="comp-h"
           code="§ 03 · Competition record"
-          title={`${competitions.length} competitions, May to September 2026`}
+          title={`${competitions.length} competitions, May to November 2026`}
           lede="Case competitions, quizzes and business challenges hosted by IIMs, IITs, B-schools and companies. Use the filters to slice the record; every chart and the table below update together."
         />
 
@@ -121,6 +122,8 @@ export function CompetitionDashboard() {
               <Kpi icon={<Building2 size={16} />} label="Distinct organisers" value={String(stats.organisers)} note={`${stats.corporates.length} companies · ${stats.institutes.length} IIM/IIT/NIT/BITS`} />
             </dl>
 
+            <HallOfFame items={scoped} />
+
             {/* Best finishes + funnel */}
             <div className="grid gap-5 lg:grid-cols-[1.25fr_1fr]">
               <Panel title="Best finishes" sub="Every entry that went beyond Round 2">
@@ -137,7 +140,7 @@ export function CompetitionDashboard() {
                           <p className="truncate font-semibold text-fg" title={c.name}>{c.name}</p>
                           <p className="truncate text-sm text-muted">{c.organiser}{c.month ? ` · ${c.month}` : ""} · {c.team.length ? `Team of ${c.team.length + 1}` : "Solo"}</p>
                         </div>
-                        <ResultPill result={c.result} />
+                        <ResultPill c={c} />
                       </li>
                     ))}
                   </ol>
@@ -209,7 +212,7 @@ export function CompetitionDashboard() {
               <Panel title="Competed at" sub="Companies and premier institutes that hosted these competitions">
                 <div className="grid gap-5 md:grid-cols-2">
                   <NameWall label="Companies" names={stats.corporates} />
-                  <NameWall label="IIMs, IITs, NIT & BITS" names={stats.institutes} />
+                  <NameWall label="IIMs, IITs, NITs & BITS" names={stats.institutes} />
                 </div>
               </Panel>
             )}
@@ -240,7 +243,7 @@ export function CompetitionDashboard() {
                           <p className="font-medium text-fg">{c.name}</p>
                           <p className="text-xs text-muted">{c.organiser}</p>
                         </td>
-                        <td className="px-3 py-2.5"><ResultPill result={c.result} /></td>
+                        <td className="px-3 py-2.5"><ResultPill c={c} /></td>
                         <td className="px-3 py-2.5 text-muted">{c.month ?? "—"}</td>
                         <td className="px-3 py-2.5 text-muted">
                           <span className="inline-flex items-center gap-1.5 text-fg">
@@ -270,11 +273,13 @@ export function CompetitionDashboard() {
 
 function topNote(best: Competition[]) {
   const top = best.filter((c) => BAND_OF[c.result] === "top");
-  const finals = top.filter((c) => c.result === "FINALS").length;
+  const n = (r: Competition["result"]) => top.filter((c) => c.result === r).length;
+  const podium = n("WINNER") + n("2ND") + n("3RD");
   const parts = [];
-  if (finals) parts.push(`${finals} final${finals > 1 ? "s" : ""}`);
-  if (top.some((c) => c.result === "WINNER")) parts.push("1 win");
-  if (top.some((c) => c.result === "4TH")) parts.push("1 fourth place");
+  if (n("WINNER")) parts.push(`${n("WINNER")} win${n("WINNER") > 1 ? "s" : ""}`);
+  if (podium - n("WINNER")) parts.push(`${podium - n("WINNER")} podium${podium - n("WINNER") > 1 ? "s" : ""}`);
+  if (n("FINALS")) parts.push(`${n("FINALS")} final${n("FINALS") > 1 ? "s" : ""}`);
+  if (n("4TH")) parts.push(`${n("4TH")} fourth place`);
   return parts.join(" · ");
 }
 
@@ -307,13 +312,15 @@ function Panel({ title, sub, children }: { title: string; sub?: string; children
   );
 }
 
-function ResultPill({ result }: { result: Competition["result"] }) {
+function ResultPill({ c }: { c: Competition }) {
+  const result = c.result;
   const b = BAND_OF[result];
+  const special = b === "top" ? specialLabel(c) : null;
   return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-semibold text-fg"
+    <span className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-semibold text-fg ${special ? "pill-shine" : ""}`}
       style={{ borderColor: `color-mix(in srgb, ${BAND_COLOR[b]} 55%, transparent)`, background: `color-mix(in srgb, ${BAND_COLOR[b]} 12%, transparent)` }}>
       <span className="h-2 w-2 rounded-full" style={{ background: BAND_COLOR[b] }} aria-hidden />
-      {RESULT_LABELS[result]}
+      {special ?? RESULT_LABELS[result]}
     </span>
   );
 }

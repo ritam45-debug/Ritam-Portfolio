@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-// COMPETITION RECORD — source: CASE_COMPS.xlsx (Sheet1), 60 entries.
+// COMPETITION RECORD — source: CASE_COMPS.xlsx (Sheet1, Nov 2026 update), 74 entries.
 // Names, teammates, results, organisers and months are copied from the sheet
 // (capitalisation tidied only). `host` and `type` are CLASSIFICATIONS added for
 // the dashboard, not columns in the sheet; change any that are wrong.
@@ -8,10 +8,10 @@
 // RESULT_LABELS. Leave `month` as null if unknown.
 // ─────────────────────────────────────────────────────────────
 
-export type Result = "R1" | "R2" | "R3" | "SEMI" | "FINALS" | "4TH" | "WINNER";
+export type Result = "R1" | "R2" | "R3" | "SEMI" | "FINALS" | "4TH" | "3RD" | "2ND" | "WINNER";
 export type Host = "premier" | "bschool" | "corporate" | "platform" | "campus";
 export type EventType = "case" | "quiz" | "other";
-export type Month = "May" | "June" | "July" | "August" | "September";
+export type Month = "May" | "June" | "July" | "August" | "September" | "October" | "November";
 
 export interface Competition {
   id: number;
@@ -23,6 +23,9 @@ export interface Competition {
   team: string[];
   host: Host;
   type: EventType;
+  /** Finishing position and field size where the sheet records them (e.g. "13th out of 430 teams"). */
+  place?: number;
+  field?: number;
 }
 
 export const RESULT_LABELS: Record<Result, string> = {
@@ -32,19 +35,21 @@ export const RESULT_LABELS: Record<Result, string> = {
   SEMI: "Semi-finals",
   FINALS: "Finals",
   "4TH": "4th place",
+  "3RD": "3rd place",
+  "2ND": "2nd place",
   WINNER: "Winners",
 };
 
 /** How far the entry progressed. Used for sorting and the progression funnel. */
-export const RESULT_DEPTH: Record<Result, number> = { R1: 1, R2: 2, R3: 3, SEMI: 4, FINALS: 5, "4TH": 5, WINNER: 6 };
+export const RESULT_DEPTH: Record<Result, number> = { R1: 1, R2: 2, R3: 3, SEMI: 4, FINALS: 5, "4TH": 6, "3RD": 7, "2ND": 8, WINNER: 9 };
 
 /** Four outcome bands used for colour. */
 export type Band = "r1" | "r2" | "deep" | "top";
-export const BAND_OF: Record<Result, Band> = { R1: "r1", R2: "r2", R3: "deep", SEMI: "deep", FINALS: "top", "4TH": "top", WINNER: "top" };
+export const BAND_OF: Record<Result, Band> = { R1: "r1", R2: "r2", R3: "deep", SEMI: "deep", FINALS: "top", "4TH": "top", "3RD": "top", "2ND": "top", WINNER: "top" };
 export const BAND_LABELS: Record<Band, string> = { r1: "Round 1", r2: "Round 2", deep: "Round 3 / Semis", top: "Finals & placings" };
 
 export const HOST_LABELS: Record<Host, string> = {
-  premier: "IIMs, IITs, NIT & BITS",
+  premier: "IIMs, IITs, NITs & BITS",
   bschool: "Other B-schools & institutes",
   corporate: "Corporates",
   platform: "Case platforms",
@@ -53,7 +58,7 @@ export const HOST_LABELS: Record<Host, string> = {
 
 export const TYPE_LABELS: Record<EventType, string> = { case: "Case & business", quiz: "Quiz", other: "Other events" };
 
-export const MONTHS: Month[] = ["May", "June", "July", "August", "September"];
+export const MONTHS: Month[] = ["May", "June", "July", "August", "September", "October", "November"];
 
 const t = (s: string) => s.split(",").map((x) => x.trim()).filter(Boolean);
 const SOLO: string[] = [];
@@ -97,7 +102,7 @@ export const competitions: Competition[] = [
   { id: 36, name: "Takshak Marketing Case Comp", organiser: "MANAGE Hyderabad", result: "R2", month: "August", team: t("Anant, Eshaan"), host: "bschool", type: "case" },
   { id: 37, name: "Abhinayak Case Comp", organiser: "MANAGE Hyderabad", result: "R1", month: "August", team: SOLO, host: "bschool", type: "case" },
   { id: 38, name: "Neetiyudh", organiser: "MANAGE Hyderabad", result: "R2", month: "August", team: t("Anant"), host: "bschool", type: "case" },
-  { id: 39, name: "India Quiz", organiser: "Quiz Club, GLIM Chennai", result: "4TH", month: "August", team: t("Abhishek, Pooja Karwa"), host: "campus", type: "quiz" },
+  { id: 39, name: "India Quiz", organiser: "Quiz Club, GLIM Chennai", result: "4TH", month: "August", team: t("Abhishek, Pooja Karwa"), host: "campus", type: "quiz", place: 4 },
   { id: 40, name: "Saregama Case Comp", organiser: "Sanjeev Goenka", result: "R2", month: "September", team: t("Safi, Deepak, Suchit"), host: "corporate", type: "case" },
   { id: 41, name: "ITC Case Study", organiser: "ITC", result: "FINALS", month: "September", team: SOLO, host: "corporate", type: "case" },
   { id: 42, name: "Digital Leaders Summit 2026", organiser: "Analytics Club, GLIM", result: "R1", month: "September", team: t("Ishan, Sukriti"), host: "campus", type: "case" },
@@ -106,17 +111,31 @@ export const competitions: Competition[] = [
   { id: 45, name: "Yukti", organiser: "SIBM Nagpur", result: "R1", month: "September", team: t("Rishita, Ankan"), host: "bschool", type: "case" },
   { id: 46, name: "Dabur Case Comp", organiser: "Dabur", result: "R1", month: "September", team: t("Shubham Tanwar, Asish Ranjan"), host: "corporate", type: "case" },
   { id: 47, name: "GLIM Gurgaon Consulting Case Comp", organiser: "GLIM Gurgaon", result: "R1", month: "September", team: t("Viraj, Anant, Pooja Karwa"), host: "bschool", type: "case" },
-  { id: 48, name: "FinCom Treasure Hunt", organiser: "FinCom", result: "WINNER", month: "September", team: t("Anant, Akshit"), host: "campus", type: "other" },
+  { id: 48, name: "FinCom Treasure Hunt", organiser: "FinCom", result: "WINNER", month: "September", team: t("Anant, Akshit"), host: "campus", type: "other", place: 1 },
   { id: 49, name: "Dr. Reddy's Laboratories Case Comp", organiser: "Dr. Reddy's", result: "R1", month: "September", team: SOLO, host: "corporate", type: "case" },
   { id: 50, name: "GLIM Gurgaon Finance Case Comp", organiser: "GLIM Gurgaon", result: "R2", month: "September", team: t("Akshit, Anant"), host: "bschool", type: "case" },
   { id: 51, name: "SIMS Pune Case Comp", organiser: "SIMS Pune", result: "R2", month: "September", team: t("Anant"), host: "bschool", type: "case" },
   { id: 52, name: "Metamorph 2026", organiser: "SIMC Pune", result: "R1", month: "September", team: t("Anant, Pooja Chandrekar, Parneet Kaur, Herold"), host: "bschool", type: "case" },
-  { id: 53, name: "Adhishtatha: The Best Manager Competition", organiser: "NAARM Hyderabad", result: "R3", month: "September", team: SOLO, host: "bschool", type: "case" },
+  { id: 53, name: "Adhishtatha: The Best Manager Competition", organiser: "NAARM Hyderabad", result: "R2", month: "September", team: SOLO, host: "bschool", type: "case" },
   { id: 54, name: "Samarthya: The Marketing Challenge", organiser: "NAARM Hyderabad", result: "R1", month: "September", team: t("Vishnu, Jyotieswaran"), host: "bschool", type: "case" },
   { id: 55, name: "Arthmanthan", organiser: "NAARM Hyderabad", result: "R2", month: "September", team: t("Rahin, Safi"), host: "bschool", type: "case" },
-  { id: 56, name: "Wonderla Case Comp", organiser: "Wonderla", result: "R2", month: "September", team: t("Krishna, Yashodhan"), host: "corporate", type: "case" },
-  { id: 57, name: "Armageddon: Strategy Case Competition", organiser: "IIM Ahmedabad", result: "R1", month: "September", team: t("Pooja Karwa, Pooja Chandrakar"), host: "premier", type: "case" },
-  { id: 58, name: "Yukti: The Social Impact Case Competition", organiser: "IIM Ahmedabad", result: "R1", month: "September", team: t("Pooja Karwa, Pooja Chandrakar"), host: "premier", type: "case" },
-  { id: 59, name: "Maverhrick 4.0", organiser: "IIM Visakhapatnam", result: "R2", month: null, team: t("Pooja Karwa"), host: "premier", type: "case" },
-  { id: 60, name: "IRC Quiz", organiser: "GLIM Chennai", result: "R1", month: "September", team: t("Pooja Karwa"), host: "campus", type: "quiz" },
+  { id: 56, name: "Wonderla Case Comp", organiser: "Wonderla", result: "R2", month: "October", team: t("Krishna, Yashodhan"), host: "corporate", type: "case" },
+  { id: 57, name: "Armageddon: Strategy Case Competition", organiser: "IIM Ahmedabad", result: "R1", month: "October", team: t("Pooja Karwa, Pooja Chandrakar"), host: "premier", type: "case" },
+  { id: 58, name: "Yukti: The Social Impact Case Competition", organiser: "IIM Ahmedabad", result: "R1", month: "October", team: t("Pooja Karwa, Pooja Chandrakar"), host: "premier", type: "case" },
+  { id: 59, name: "Maverhrick 4.0", organiser: "IIM Visakhapatnam", result: "FINALS", month: "October", team: t("Pooja Karwa"), host: "premier", type: "case", place: 13, field: 430 },
+  { id: 60, name: "IRC Quiz", organiser: "GLIM Chennai", result: "R1", month: "October", team: t("Pooja Karwa"), host: "campus", type: "quiz" },
+  { id: 61, name: "Colloquium Quiz", organiser: "SCHMRD", result: "R1", month: "October", team: SOLO, host: "bschool", type: "quiz" },
+  { id: 62, name: "Kaun Banega Kotler 2.0", organiser: "IIM Amritsar", result: "R2", month: "October", team: t("Yash, Oindrella, Safi"), host: "premier", type: "quiz" },
+  { id: 63, name: "Scribble Dribble", organiser: "IIM Kashipur", result: "R2", month: "October", team: SOLO, host: "premier", type: "other" },
+  { id: 64, name: "Kronos HR Competition", organiser: "XLRI", result: "R1", month: "October", team: t("Anant"), host: "bschool", type: "case" },
+  { id: 65, name: "Chanakyaniti", organiser: "NMIMS Bengaluru", result: "R2", month: "October", team: t("Anant, Pooja Karwa, Samriddhi"), host: "bschool", type: "case" },
+  { id: 66, name: "Pitch Me a Stock", organiser: "NIT Rourkela & IIT Madras", result: "2ND", month: "October", team: t("Anant, Pooja Karwa, Samriddhi"), host: "premier", type: "case", place: 2, field: 640 },
+  { id: 67, name: "Strategize 2.0", organiser: "GLIM Chennai", result: "R1", month: "October", team: t("Pooja Karwa, Sreenithi, Samriddhi"), host: "campus", type: "case" },
+  { id: 68, name: "Decode-Encode", organiser: "GLIM Chennai", result: "3RD", month: "October", team: t("Pooja Karwa, Anant"), host: "campus", type: "other", place: 3 },
+  { id: 69, name: "Veditum", organiser: "GIM Goa", result: "R1", month: "October", team: t("Anant"), host: "bschool", type: "case" },
+  { id: 70, name: "prAIyaan 4.0", organiser: "GIM Goa", result: "R2", month: "October", team: t("Anant, Viraj"), host: "bschool", type: "case" },
+  { id: 71, name: "Chrysalis 9.0", organiser: "GIM Goa", result: "R2", month: "October", team: t("Anant, Puneet"), host: "bschool", type: "case" },
+  { id: 72, name: "Nivesh", organiser: "GIM Goa", result: "R2", month: "October", team: t("Anant, Aparajita"), host: "bschool", type: "case" },
+  { id: 73, name: "Market Masters", organiser: "NIT Raipur", result: "FINALS", month: "November", team: t("Herold, Akshit"), host: "premier", type: "case" },
+  { id: 74, name: "Global Case Masters 2026", organiser: "IMT Ghaziabad", result: "R1", month: "November", team: t("Akshit"), host: "bschool", type: "case" },
 ];

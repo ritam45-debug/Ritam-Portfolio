@@ -1,10 +1,99 @@
+import { useEffect, useRef, useState } from "react";
+import type { ArenaHandle, RoundInfo, Side } from "./bullbear/arena";
+
+function webglOK() {
+  try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; }
+}
+
+/**
+ * 3D Bulls vs Bears arena. three.js loads only when the section nears the
+ * viewport; without WebGL the 2D version below is shown instead.
+ */
+export function BullBear() {
+  const host = useRef<HTMLDivElement>(null);
+  const arena = useRef<ArenaHandle | null>(null);
+  const [mode, setMode] = useState<"pending" | "3d" | "2d">("pending");
+  const [info, setInfo] = useState<RoundInfo | null>(null);
+  const [backing, setBacking] = useState<Side | null>(null);
+
+  useEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    if (!webglOK()) { setMode("2d"); return; }
+    let cancelled = false;
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    const io = new IntersectionObserver(async ([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      try {
+        const { createArena } = await import("./bullbear/arena");
+        if (cancelled || !host.current) return;
+        arena.current = createArena(host.current, setInfo, reduced);
+        if (location.search.includes("debug-arena")) (window as unknown as { __arena: ArenaHandle }).__arena = arena.current;
+        setMode("3d");
+      } catch {
+        if (!cancelled) setMode("2d");
+      }
+    }, { rootMargin: "400px 0px" });
+    io.observe(el);
+    return () => { cancelled = true; io.disconnect(); arena.current?.dispose(); arena.current = null; };
+  }, []);
+
+  const back = (s: Side) => { const next = backing === s ? null : s; setBacking(next); arena.current?.back(next); };
+
+  if (mode === "2d") return <BullBear2D />;
+
+  const total = info ? info.bulls + info.bears : 0;
+  const bullShare = total ? (info!.bulls / total) * 100 : 50;
+
+  return (
+    <section aria-label="Bulls versus bears, a 3D animation" className="relative overflow-hidden border-b border-line bg-surface/40">
+      <div className="pointer-events-none absolute inset-0" aria-hidden style={{ background: "radial-gradient(60% 70% at 50% 75%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%)" }} />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div ref={host} className="bb3d relative h-[360px] w-full touch-pan-y sm:h-[460px]" role="img"
+          aria-label="A 3D bull and bear fight on a round trading floor; each round prints a green or red candle on the chart wall behind them.">
+          {mode === "pending" && <p className="absolute inset-0 grid place-items-center font-mono text-xs text-muted">Loading the arena…</p>}
+        </div>
+
+        {/* Scoreboard */}
+        <div className="pointer-events-none absolute inset-x-4 top-4 flex flex-col items-center gap-2 sm:inset-x-6">
+          <p className="ticker text-muted">The trading floor · <span className="text-pos">Bulls</span> vs <span className="text-neg">Bears</span></p>
+          <div className="flex items-center gap-3 rounded-full border border-line bg-bg/75 px-4 py-1.5 font-mono text-sm backdrop-blur-md" aria-live="polite">
+            <span className="font-semibold text-pos">BULLS {info?.bulls ?? 0}</span>
+            <span className="relative h-1.5 w-24 overflow-hidden rounded-full bg-neg/70 sm:w-36" aria-hidden>
+              <span className="absolute inset-y-0 left-0 rounded-full bg-pos transition-[width] duration-700" style={{ width: `${bullShare}%` }} />
+            </span>
+            <span className="font-semibold text-neg">{info?.bears ?? 0} BEARS</span>
+          </div>
+          <p key={info?.round ?? 0} className="bb3d-caption min-h-[1.25rem] text-center text-xs text-muted">
+            {info ? (info.winner === "bull"
+              ? <>Round {info.round}: the bull tosses the bear, <span className="text-pos">green candle printed</span></>
+              : <>Round {info.round}: the bear slams the bull down, <span className="text-neg">red candle printed</span></>)
+              : "Every clash prints a candle on the wall behind them"}
+          </p>
+        </div>
+
+        {/* Pick a side */}
+        <div className="absolute inset-x-4 bottom-4 flex flex-wrap items-center justify-center gap-2 sm:inset-x-6">
+          <span className="text-xs text-muted">Back a side:</span>
+          <button type="button" onClick={() => back("bull")} aria-pressed={backing === "bull"}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${backing === "bull" ? "border-pos bg-pos text-bg" : "border-pos/60 bg-bg/70 text-pos hover:bg-pos/15"}`}>▲ Bulls</button>
+          <button type="button" onClick={() => back("bear")} aria-pressed={backing === "bear"}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${backing === "bear" ? "border-neg bg-neg text-bg" : "border-neg/60 bg-bg/70 text-neg hover:bg-neg/15"}`}>▼ Bears</button>
+          {backing && <span className="text-xs text-muted">Your side wins more of the next rounds.</span>}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /**
  * "Bulls vs Bears" — a looping tribute to the market's eternal tug-of-war.
  * A bull charges from the left, a bear from the right; they clash in the
  * middle with a burst of sparks while a meter swings between them.
  * All motion is CSS keyframes; under reduced motion they simply face off.
  */
-export function BullBear() {
+export function BullBear2D() {
   return (
     <section aria-label="Bulls versus bears" className="relative overflow-hidden border-b border-line bg-surface/40">
       <div className="bb-stage relative mx-auto h-[220px] max-w-6xl px-4 sm:h-[260px] sm:px-6">

@@ -353,3 +353,77 @@ h1, h2, h3 { text-wrap: balance; }
   .rise-ping { animation: none !important; }
   .riser { display: none; }
 }
+
+/* ── Podium moments (competition specials) ── */
+:root { --gold: #f2c14e; --silver: #c9d3e3; --bronze: #e08a4c; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --gold: #a87405; --silver: #5f6e86; --bronze: #9a5521; } }
+:root[data-theme="light"] { --gold: #a87405; --silver: #5f6e86; --bronze: #9a5521; }
+
+.hof-card {
+  border-color: color-mix(in srgb, var(--tone) 40%, var(--line));
+  box-shadow: 0 0 0 0 transparent;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+  animation: hof-in .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 90ms);
+  animation-timeline: view(); animation-range: entry 0% cover 25%;
+}
+.hof-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--tone) 70%, transparent); }
+@keyframes hof-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+
+/* winner: rotating gold rim + rays + bouncing trophy + confetti */
+.hof-winner { border-color: transparent; background:
+  linear-gradient(var(--bg), var(--bg)) padding-box,
+  conic-gradient(from var(--hof-a, 0deg), var(--gold), transparent 30%, var(--gold) 50%, transparent 80%, var(--gold)) border-box; animation: hof-in .7s both, hof-rim 4s linear infinite; }
+@property --hof-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes hof-rim { to { --hof-a: 360deg; } }
+.hof-rays { background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--gold) 45%, transparent) 0 10deg, transparent 10deg 30deg); mask: radial-gradient(circle, #000 35%, transparent 70%); animation: hof-spin 9s linear infinite; }
+.hof-trophy { color: var(--bg); background: radial-gradient(circle at 35% 30%, #fff6d6, var(--gold) 55%, color-mix(in srgb, var(--gold) 60%, #000)); box-shadow: 0 0 24px color-mix(in srgb, var(--gold) 70%, transparent); animation: hof-bounce 1.6s cubic-bezier(.3,0,.3,1) infinite; }
+@keyframes hof-bounce { 0%,100% { transform: translateY(0) rotate(-4deg); } 45% { transform: translateY(-8px) rotate(5deg) scale(1.06); } 60% { transform: translateY(0) scale(.97,1.03); } }
+.hof-confetti { opacity: 0; animation: hof-fall 3s linear infinite; }
+@keyframes hof-fall { 0% { opacity: 0; transform: translateY(-10px) rotate(0); } 10% { opacity: .9; } 100% { opacity: 0; transform: translateY(170px) translateX(18px) rotate(540deg); } }
+
+/* 2nd: swinging medal + sheen */
+.hof-swing { transform-origin: 50% 0; animation: hof-swing 2.4s ease-in-out infinite; }
+@keyframes hof-swing { 0%,100% { transform: rotate(16deg); } 50% { transform: rotate(-16deg); } }
+.hof-medal { color: var(--bg); background: linear-gradient(115deg, color-mix(in srgb, var(--silver) 70%, #000) 0%, var(--silver) 35%, #fff 48%, var(--silver) 60%, color-mix(in srgb, var(--silver) 60%, #000) 100%); background-size: 250% 100%; animation: hof-sheen 2.4s ease-in-out infinite; box-shadow: 0 0 18px color-mix(in srgb, var(--silver) 50%, transparent); }
+@keyframes hof-sheen { 0% { background-position: 100% 0; } 100% { background-position: -50% 0; } }
+
+/* 3rd: 3D spinning coin */
+.hof-coin-wrap { perspective: 300px; }
+.hof-coin { color: var(--bg); background: radial-gradient(circle at 35% 30%, #ffd9b8, var(--bronze) 55%, color-mix(in srgb, var(--bronze) 55%, #000)); box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--bronze) 60%, #000), 0 0 18px color-mix(in srgb, var(--bronze) 50%, transparent); animation: hof-coin 3s cubic-bezier(.45,0,.55,1) infinite; transform-style: preserve-3d; }
+@keyframes hof-coin { 0% { transform: rotateY(0); } 60%,100% { transform: rotateY(720deg); } }
+
+/* 4th: radar pings */
+.hof-ping { border-color: var(--tone); animation: hof-ping 1.8s ease-out infinite; }
+@keyframes hof-ping { from { transform: scale(.7); opacity: .9; } to { transform: scale(1.5); opacity: 0; } }
+
+/* ranked final: pulsing badge + meter fill */
+.hof-rank { animation: hof-glow 2.2s ease-in-out infinite; }
+@keyframes hof-glow { 0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tone) 0%, transparent); } 50% { box-shadow: 0 0 22px 2px color-mix(in srgb, var(--tone) 45%, transparent); } }
+.hof-fill { transform-origin: 0 50%; animation: hof-grow 1.6s cubic-bezier(.2,.8,.2,1) both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+@keyframes hof-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* finals: flag rises and waves */
+.hof-flag { top: 0; transform-origin: 0 50%; animation: hof-raise 3.2s cubic-bezier(.3,.7,.3,1) infinite, hof-wave .8s ease-in-out infinite alternate; clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%); }
+@keyframes hof-raise { 0% { top: 38px; } 35%,100% { top: 0; } }
+@keyframes hof-wave { from { transform: skewY(-6deg) scaleX(.94); } to { transform: skewY(6deg) scaleX(1); } }
+.hof-finals { animation: hof-in .7s both, hof-glow 2.6s ease-in-out infinite; }
+
+/* semis: orbiting stars */
+.hof-orbit { animation: hof-spin 4s linear infinite; }
+@keyframes hof-spin { to { transform: rotate(360deg); } }
+
+/* shimmering pill for top finishes in the list and table */
+.pill-shine { position: relative; overflow: hidden; }
+.pill-shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, #fff 55%, transparent) 50%, transparent 70%); transform: translateX(-120%); animation: pill-shine 3.2s ease-in-out infinite; }
+@keyframes pill-shine { 0%,55% { transform: translateX(-120%); } 85%,100% { transform: translateX(120%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hof-card, .hof-winner, .hof-finals, .hof-rays, .hof-trophy, .hof-swing, .hof-medal, .hof-coin, .hof-ping, .hof-rank, .hof-fill, .hof-flag, .hof-orbit, .pill-shine::after { animation: none !important; }
+  .hof-confetti, .hof-ping { display: none; }
+  .hof-winner { background: linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(var(--gold), var(--gold)) border-box; }
+}
+
+/* 3D bulls vs bears caption */
+.bb3d-caption { animation: bb3d-cap .6s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes bb3d-cap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .bb3d-caption { animation: none; } }
