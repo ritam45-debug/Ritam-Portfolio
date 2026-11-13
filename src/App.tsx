@@ -3,6 +3,7 @@ import { applyAccent, applyTheme, getInitialAccent, getInitialTheme, type Accent
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
+import { Experience } from "./components/Experience";
 import { CompetitionDashboard } from "./components/CompetitionDashboard";
 import { Work } from "./components/Work";
 import { BackToTop, Footer } from "./components/Footer";
@@ -42,6 +43,7 @@ export default function App() {
         <Hero />
         <BullBear />
         <About />
+        <Experience />
         <Work />
         <CompetitionDashboard />
         <Trivia />

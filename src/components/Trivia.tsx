@@ -175,13 +175,13 @@ export function Trivia() {
       <section id="finance-trivia" aria-labelledby="ft-h" className="relative overflow-hidden border-t border-line">
         <div className="ledger absolute inset-0 opacity-60" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 py-20 sm:px-6 md:py-24">
-          <SectionHeader id="ft-h" code="§ 04 · Finance trivia" title="Think like an analyst" lede="Ratios, valuation maths, markets history and terms of the trade. Numbers are generated fresh each time, so no two rounds are the same. Press 1–4 to answer and Enter for the next one." />
+          <SectionHeader id="ft-h" code="§ 05 · Finance trivia" title="Think like an analyst" lede="Ratios, valuation maths, markets history and terms of the trade. Numbers are generated fresh each time, so no two rounds are the same. Press 1–4 to answer and Enter for the next one." />
           <TriviaCard deck="finance" />
         </div>
       </section>
       <section id="marketing-trivia" aria-labelledby="mt-h" className="relative overflow-hidden border-t border-line bg-surface/40">
         <div className="relative mx-auto max-w-4xl px-4 py-20 sm:px-6 md:py-24">
-          <SectionHeader id="mt-h" code="§ 05 · Marketing trivia" title="Think like a brand manager" lede="Frameworks, thinkers, unit economics, pricing and Indian retail vocabulary. Numbers are generated fresh, so you get a new question every time, with the reasoning behind each answer." />
+          <SectionHeader id="mt-h" code="§ 06 · Marketing trivia" title="Think like a brand manager" lede="Frameworks, thinkers, unit economics, pricing and Indian retail vocabulary. Numbers are generated fresh, so you get a new question every time, with the reasoning behind each answer." />
           <TriviaCard deck="marketing" />
         </div>
       </section>

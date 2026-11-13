@@ -12,8 +12,8 @@ export const profile = {
     "I'm a management student at Great Lakes Institute of Management, Chennai, working at the point where financial analysis, data and business strategy meet. I like taking a business question apart, finding the numbers that matter, and turning them into a decision someone can act on.",
 
   education: {
-    current: "Management programme, Great Lakes Institute of Management, Chennai",
-    undergraduate: "BBA",
+    current: "PGDM (2026–28), Great Lakes Institute of Management, Chennai · Finance major, Analytics & Marketing",
+    undergraduate: "BBA (Finance), Brainware University · UG Topper, 1st of 250",
     record: "CGPA 9.8/10 and a 93% undergraduate score",
   },
 
@@ -42,6 +42,7 @@ export const profile = {
     { name: "Power BI", use: "Interactive dashboards and KPI reporting" },
     { name: "Tableau", use: "Visual analysis and data storytelling" },
     { name: "IBM Cognos Analytics", use: "Business intelligence and reporting" },
+    { name: "Screener", use: "Company financials and peer screening" },
   ],
 
   contact: {

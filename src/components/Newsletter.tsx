@@ -54,7 +54,7 @@ export function Newsletter({ onToast }: { onToast: (m: string) => void }) {
       <div className="ledger absolute inset-0 opacity-50" aria-hidden />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeader id="nl-h" code="§ 06 · Newsletter" title="The Ledger Notes" lede="Short, plain-English notes on finance, markets, strategy and life in an MBA, written by Ritam. New issues appear here as soon as they're published." />
+          <SectionHeader id="nl-h" code="§ 07 · Newsletter" title="The Ledger Notes" lede="Short, plain-English notes on finance, markets, strategy and life in an MBA, written by Ritam. New issues appear here as soon as they're published." />
           {author && (
             <button type="button" onClick={() => setEditing(true)} className="mb-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-accent-ink shadow-[0_10px_30px_-10px_var(--accent)] transition-transform hover:-translate-y-0.5 md:mb-14">
               <PenLine size={15} /> Write an issue

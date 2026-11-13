@@ -86,7 +86,7 @@ export function CompetitionDashboard() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHeader
           id="comp-h"
-          code="§ 03 · Competition record"
+          code="§ 04 · Competition record"
           title={`${competitions.length} competitions, May to November 2026`}
           lede="Case competitions, quizzes and business challenges hosted by IIMs, IITs, B-schools and companies. Use the filters to slice the record; every chart and the table below update together."
         />

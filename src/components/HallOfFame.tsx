@@ -29,13 +29,13 @@ export function kindOf(c: Competition): Kind | null {
 }
 
 const KIND_META: Record<Kind, { label: (c: Competition) => string; tone: string }> = {
-  winner: { label: () => "Winners", tone: "var(--gold)" },
+  winner: { label: (c) => (c.field ? `Winners · 1st of ${c.field} teams` : "Winners"), tone: "var(--gold)" },
   silver: { label: (c) => (c.field ? `2nd of ${c.field} teams` : "2nd place"), tone: "var(--silver)" },
   bronze: { label: (c) => (c.field ? `3rd of ${c.field}` : "3rd place"), tone: "var(--bronze)" },
   fourth: { label: () => "4th place", tone: "var(--b3)" },
   ranked: { label: (c) => `${ordinal(c.place!)} of ${c.field} · Finals`, tone: "var(--accent)" },
   finals: { label: () => "Finalists", tone: "var(--b4)" },
-  semi: { label: () => "Semi-finalists", tone: "var(--accent-2)" },
+  semi: { label: (c) => (c.place && c.field ? `${ordinal(c.place)} of ${c.field} · Semi-finals` : "Semi-finalists"), tone: "var(--accent-2)" },
 };
 
 export function ordinal(n: number) {
@@ -90,7 +90,7 @@ function HofCard({ c, kind, index }: { c: Competition; kind: Kind; index: number
         </div>
       </div>
       {kind === "ranked" && <RankMeter place={c.place!} field={c.field!} />}
-      {kind === "silver" && c.field && <FieldBar place={c.place ?? 2} field={c.field} />}
+      {(kind === "silver" || kind === "semi" || kind === "winner") && c.field && <FieldBar place={c.place ?? 1} field={c.field} />}
     </li>
   );
 }

@@ -70,7 +70,7 @@ export function News() {
     <section id="news" aria-labelledby="news-h" className="relative border-t border-line bg-surface/40">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeader id="news-h" code="§ 07 · Newsroom" title="What's moving the world today" lede="Headlines on markets, finance, the economy and geopolitics, gathered from leading news outlets every three hours. Every story links to the original report." />
+          <SectionHeader id="news-h" code="§ 08 · Newsroom" title="What's moving the world today" lede="Headlines on markets, finance, the economy and geopolitics, gathered from leading news outlets every three hours. Every story links to the original report." />
           {data?.updatedAt ? (
             <p className="mb-10 flex items-center gap-2 font-mono text-xs text-muted md:mb-14">
               <span className="pulse-dot h-2 w-2 rounded-full bg-pos" aria-hidden /> Updated {ago(data.updatedAt)}

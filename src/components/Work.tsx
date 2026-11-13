@@ -46,7 +46,7 @@ export function Work() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <SectionHeader
           id="work-h"
-          code="§ 02 · Projects"
+          code="§ 03 · Projects"
           title="Equity research and financial analysis"
           lede="Three pieces of work, each shown as a live dashboard alongside the original file. Pick a project, switch between the dashboard and the original, and hover any chart for exact figures."
         />

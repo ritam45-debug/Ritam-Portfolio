@@ -6,6 +6,7 @@ import { Bell } from "./Bell";
 
 export const NAV = [
   { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "competitions", label: "Competitions" },
   { id: "trivia", label: "Trivia" },

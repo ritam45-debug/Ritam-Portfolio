@@ -427,3 +427,17 @@ h1, h2, h3 { text-wrap: balance; }
 .bb3d-caption { animation: bb3d-cap .6s cubic-bezier(.2,.8,.2,1) both; }
 @keyframes bb3d-cap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .bb3d-caption { animation: none; } }
+
+/* ── Experience timeline ── */
+.exp-line::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-2), var(--pos));
+  transform-origin: top; animation: exp-draw 1.4s cubic-bezier(.2,.8,.2,1) both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
+@keyframes exp-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.exp-node { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tone) 50%, transparent); animation: exp-pulse 2.6s ease-out infinite; }
+@keyframes exp-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--tone) 55%, transparent); } 70%,100% { box-shadow: 0 0 0 10px transparent; } }
+.exp-stat { display: inline-block; animation: exp-pop .9s cubic-bezier(.3,1.6,.5,1) both; animation-timeline: view(); animation-range: entry 20% cover 40%; }
+@keyframes exp-pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+.exp-crown { color: var(--bg); background: radial-gradient(circle at 35% 30%, #fff6d6, var(--gold) 60%); box-shadow: 0 0 14px color-mix(in srgb, var(--gold) 60%, transparent); }
+.exp-metric { transition: transform .25s, border-color .25s; }
+.exp-metric:hover { transform: translateY(-3px); border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .exp-line::before, .exp-node, .exp-stat { animation: none !important; } }
