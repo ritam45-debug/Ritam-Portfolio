@@ -6,6 +6,7 @@ import { About } from "./components/About";
 import { Experience } from "./components/Experience";
 import { CompetitionDashboard } from "./components/CompetitionDashboard";
 import { Work } from "./components/Work";
+import { LiveProject } from "./components/LiveProject";
 import { BackToTop, Footer } from "./components/Footer";
 import { Consult, WhatsAppFab } from "./components/Consult";
 import { Trivia } from "./components/Trivia";
@@ -45,6 +46,7 @@ export default function App() {
         <About />
         <Experience />
         <Work />
+        <LiveProject />
         <CompetitionDashboard />
         <Trivia />
         <Newsletter onToast={showToast} />

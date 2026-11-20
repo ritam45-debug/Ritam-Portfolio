@@ -8,6 +8,7 @@ export const NAV = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "live-project", label: "SoundSense" },
   { id: "competitions", label: "Competitions" },
   { id: "trivia", label: "Trivia" },
   { id: "newsletter", label: "Newsletter" },
@@ -60,7 +61,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6" aria-label="Main">
         <a href="#top" className="group flex items-center gap-2.5 font-display text-lg text-fg">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent to-accent-2 font-mono text-xs font-semibold text-accent-ink shadow-[0_0_20px_-4px_var(--accent)] transition-transform group-hover:rotate-6">{profile.initials}</span>
-          <span className="hidden sm:inline">{profile.name}</span>
+          <span className="hidden whitespace-nowrap sm:inline">{profile.name}</span>
         </a>
         <ul className="hidden items-center gap-0.5 xl:flex">
           {NAV.map((n) => (
@@ -68,7 +69,7 @@ export function Nav({ theme, onToggleTheme, accent, onAccent }: { theme: Theme; 
               <a
                 href={`#${n.id}`}
                 aria-current={active === n.id ? "true" : undefined}
-                className={`relative rounded-full px-3.5 py-1.5 text-sm transition-colors ${active === n.id ? "bg-surface-2 text-fg" : "text-muted hover:text-fg"}`}
+                className={`relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm transition-colors 2xl:px-3.5 ${active === n.id ? "bg-surface-2 text-fg" : "text-muted hover:text-fg"}`}
               >
                 {n.label}
                 {active === n.id && <span className="absolute inset-x-3 -bottom-px h-px bg-gradient-to-r from-accent to-accent-2" aria-hidden />}
