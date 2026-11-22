@@ -16,7 +16,7 @@ import { News } from "./components/News";
 import { CursorGlow, usePointerEffects } from "./components/Effects";
 import { Toast } from "./components/ui";
 
-// Sections currently live: Hero, About, Projects (Blue Star, FADM), Competition record, Finance & Marketing trivia, Newsletter, News, Consult. Bull-vs-bear arena under the hero.
+// Sections currently live: Hero, About, Projects (Pidilite DCF, Blue Star, Eternal, FADM), Competition record, Finance & Marketing trivia, Newsletter, News, Consult. Bull-vs-bear arena under the hero.
 // Parked components, ready to re-add on request: Projects, Playground, Journey,
 // Interests, AskRitam, Journal, Contact (all in src/components/).
 

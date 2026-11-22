@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { ArrowRight, Download, ExternalLink, FileBarChart2, FileText, LayoutDashboard, Presentation } from "lucide-react";
-import { blueStar, eternal, fadm } from "../content/work";
+import { blueStar, eternal, fadm, pidilite } from "../content/work";
 import summaryImg from "../assets/bluestar-summary.jpg";
 import eternalImg from "../assets/eternal-summary.jpg";
+import pidiliteImg from "../assets/pidilite-summary.jpg";
 import coverImg from "../assets/fadm/slide-06.jpg";
 import { SectionHeader } from "./ui";
 import { Segmented, spotMove } from "./work/shared";
 import { BlueStarPanel } from "./work/BlueStarPanel";
 import { FadmPanel } from "./work/FadmPanel";
 import { EternalPanel } from "./work/EternalPanel";
+import { PidilitePanel } from "./work/PidilitePanel";
 
 const base = import.meta.env.BASE_URL;
 const PROJECTS = [
+  {
+    id: pidilite.id, title: pidilite.title, kind: pidilite.kind, ownership: pidilite.ownership, blurb: pidilite.blurb,
+    img: pidiliteImg, icon: FileBarChart2, imgPos: "object-top",
+    pdf: `${base}files/Pidilite-DCF-Valuation-Ritam-Dhara.pdf`, pdfLabel: "5-page DCF model · PDF · 83 KB", portrait: true,
+  },
   {
     id: blueStar.id, title: blueStar.title, kind: blueStar.kind, ownership: blueStar.ownership, blurb: blueStar.blurb,
     img: summaryImg, icon: FileBarChart2, imgPos: "object-top",
@@ -48,10 +55,10 @@ export function Work() {
           id="work-h"
           code="§ 03 · Projects"
           title="Equity research and financial analysis"
-          lede="Three pieces of work, each shown as a live dashboard alongside the original file. Pick a project, switch between the dashboard and the original, and hover any chart for exact figures."
+          lede="Four pieces of work, each shown as a live dashboard alongside the original file. Pick a project, switch between the dashboard and the original, and hover any chart for exact figures."
         />
 
-        <div role="tablist" aria-label="Projects" className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div role="tablist" aria-label="Projects" className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2">
           {PROJECTS.map((proj, i) => {
             const on = i === active;
             const Icon = proj.icon;
@@ -104,7 +111,7 @@ export function Work() {
           </div>
 
           {view === "dashboard" ? (
-            active === 0 ? <BlueStarPanel /> : active === 1 ? <EternalPanel /> : <FadmPanel />
+            [<PidilitePanel key="p" />, <BlueStarPanel key="b" />, <EternalPanel key="e" />, <FadmPanel key="f" />][active]
           ) : (
             <div className="fade-in grid gap-4">
               <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-surface p-4">

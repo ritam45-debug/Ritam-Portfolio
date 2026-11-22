@@ -206,3 +206,71 @@ export const eternal = {
   ],
   sources: "Screener.in; Eternal annual reports (FY25, FY26 Board report); exchange shareholding filings and Q2 FY27 shareholders' letter; Yahoo Finance (price and volume).",
 };
+
+// ─────────────────────────────────────────────────────────────
+// PIDILITE INDUSTRIES — DCF valuation by Ritam (PDF, data as on 12 Nov 2026).
+// Every number below is copied from that PDF; derived figures are computed in the panel and labelled.
+// ─────────────────────────────────────────────────────────────
+export const pidilite = {
+  id: "pidilite",
+  title: "Pidilite Industries",
+  kind: "Equity valuation · Discounted cash flow (FCFF) model",
+  ownership: "Individual work",
+  blurb:
+    "A full DCF valuation of Pidilite (Fevicol, Dr. Fixit, Roff): WACC built from first principles, an eight-year FCFF forecast, a terminal value, the equity bridge, a WACC × growth sensitivity grid and a reverse-DCF check, read alongside the Q4 FY26 earnings call.",
+  snapshot: {
+    sector: "Specialty Chemicals", marketCap: 160008, price: 1571, high52: 1708, low52: 1259, pe: 59.6, bookValue: 110,
+    divYield: 0.74, roce: 31.0, roe: 23.9, dataDate: "12 Nov 2026", source: "Screener.in, consolidated",
+    business: "Adhesives, sealants, construction chemicals, craft & DIY products, polymer emulsions; flagship brand Fevicol",
+  },
+  wacc: { rf: 7.22, erp: 7.08, beta: 0.41, ke: 10.12, kdPre: 7.62, tax: 25, kdPost: 5.71, equity: 159988, debt: 417, eqWeight: 99.74, debtWeight: 0.26, wacc: 10.11 },
+  // Mar-20 … Mar-26 actual, Mar-27 … Mar-34 forecast (₹ Cr)
+  years: ["FY20", "FY21", "FY22", "FY23", "FY24", "FY25", "FY26", "FY27", "FY28", "FY29", "FY30", "FY31", "FY32", "FY33", "FY34"],
+  actualCount: 7,
+  growth: [null, null, null, null, null, null, null, 13.0, 12.0, 11.5, 11.0, 10.0, 9.0, 7.5, 6.5] as (number | null)[],
+  revenue: [7294.47, 7292.71, 9920.96, 11799.1, 12382.99, 13140.3, 14601.0, 16499.13, 18479.03, 20604.11, 22870.57, 25157.62, 27421.81, 29478.44, 31394.54],
+  ebitda: [1576.02, 1686.35, 1856.41, 1986.09, 2708.45, 3010.58, 3521.3, 3629.81, 4065.39, 4532.9, 5031.52, 5534.68, 6032.8, 6485.26, 6906.8],
+  capex: [490, 356, 376, 513, 565, 456, 597, 723.81, 810.66, 903.89, 1003.32, 1103.65, 1202.98, 1293.2, 1377.26],
+  fcff: [734.52, 767.01, 535.31, 780.07, 1909.59, 1744.56, 1776.65, 1798.44, 1963.48, 2205.71, 2466.74, 2754.44, 3047.89, 3351.63, 3624.09],
+  pv: [null, null, null, null, null, null, null, 1713.9, 1699.4, 1733.79, 1760.97, 1785.84, 1794.68, 1792.36, 1760.14] as (number | null)[],
+  periods: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5],
+  terminal: { g: 5.5, fcfNext: 3823.42, tv: 82967.27, pvTv: 40295.36 },
+  pvFcff: 14041.08,
+  bridge: { ev: 54336.45, cash: 4218.73, otherAssets: 429.78, debt: 417.0, minority: 216.48, equity: 58351.48, shares: 101.78, perShare: 573.31, cmp: 1571.9, overBy: 174.2, dcfPctMcap: 36.5 },
+  sensitivity: {
+    wacc: [8.0, 9.0, 10.11, 11.0, 12.0],
+    g: [3.5, 4.5, 5.5, 6.5, 7.5],
+    grid: [
+      [648.56, 534.28, 448.26, 397.65, 353.66],
+      [785.65, 616.44, 499.63, 434.72, 380.4],
+      [1032.41, 745.56, 573.31, 485.26, 415.36],
+      [1608.18, 977.97, 687.82, 558.27, 463.04],
+      [4487.05, 1520.26, 890.14, 672.99, 531.91],
+    ],
+  },
+  wcMedian: 19.9,
+  tgReasons: [
+    { t: "Brand strength", d: "Fevicol, Dr. Fixit and Roff enjoy strong recognition and customer loyalty." },
+    { t: "Long-term consumption", d: "Urbanisation, housing demand and infrastructure support adhesives and waterproofing." },
+    { t: "Room to penetrate", d: "Opportunities remain in rural India and smaller towns." },
+    { t: "Pricing power", d: "Strong brands can pass on part of raw-material cost increases." },
+    { t: "Maturity", d: "An established company, so perpetual growth sits below near-term growth." },
+  ],
+  concall: [
+    { k: "₹3,272 Cr", l: "Q4 FY26 standalone revenue, +15.3% YoY" },
+    { k: "15.3%", l: "Q4 underlying volume growth (C&B 15.4%, B2B 14.8%)" },
+    { k: "23.4%", l: "Q4 EBITDA margin, +280 bps YoY" },
+    { k: "₹14,553 Cr", l: "FY26 consolidated revenue, +11.1%; PAT +17.9%" },
+    { k: "40–50%", l: "peak raw-material basket inflation (West Asia conflict)" },
+    { k: "11–13%", l: "blended price increase (calculated: 4–5% in April + 7–8% in early May)" },
+    { k: "20–24%", l: "EBITDA margin corridor management reaffirmed" },
+    { k: "~₹570 Cr", l: "FY26 capex; new West India Fevicol plant in Q1 FY27" },
+  ],
+  sources: [
+    "Company data: Screener.in (consolidated), 12 Nov 2026",
+    "Risk-free rate: 10-year Indian government bond yield",
+    "Equity risk premium and cost of debt: Aswath Damodaran (NYU Stern)",
+    "Beta: Investing.com",
+    "Concall: Pidilite Q4 FY26 earnings call",
+  ],
+};
